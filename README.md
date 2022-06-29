@@ -6,8 +6,11 @@ A quote on a matched stock symbol can be performed.There are 4 routes for this a
 
 
 a) Home Route [‘/’] redirected to [‘/search/home’]– It is a default route of this application.
-b) Search Details Route [‘/search/<ticker>’] – It shows the details of the <ticker> searched
+
+b) Search Details Route [‘/search/<ticker>’] – It shows the details of the <ticker> searched.
+  
 c) Watchlist Route [‘/watchlist’] – It displays the watchlist of the user.
+  
 d) Portfolio Route [‘/portfolio’] – It displays the portfolio of the user.
   
   

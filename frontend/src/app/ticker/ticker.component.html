@@ -1,0 +1,48 @@
+<div *ngIf="!shouldShowContent">
+  <div class="container" style="margin-top: 50px;padding-top:10px; padding-bottom: 10px; background-color: #f9d7da">
+    <div class="row justify-content-center">
+      API limit exceeded. Please try again later. Remaining Limit: 0
+    </div>
+  </div>
+</div>
+<div *ngIf="shouldShowContent">
+<mat-spinner
+  *ngIf="
+    (!basicSearchResults ||
+      !quoteResults ||
+      !companyPeerResults) &&
+    ticker"
+  class="mt-4 mx-auto"></mat-spinner>
+<div class="stock-details">
+  <div *ngIf="basicSearchResults && quoteResults">
+    <app-stock-details [basicSearchResults]="basicSearchResults" [quoteResults]="quoteResults"></app-stock-details>
+  </div>
+
+</div>
+
+
+  <mat-tab-group mat-stretch-tabs>
+    <mat-tab label="Summary">
+      <div *ngIf="basicSearchResults && quoteResults && companyPeerResults && ticker">
+        <app-tab-stock-summary [basicSearchResults]="basicSearchResults" [quoteResults]="quoteResults"
+                               [companyPeerResults]="companyPeerResults" [ticker]="ticker"></app-tab-stock-summary>
+      </div>
+    </mat-tab>
+    <mat-tab label="Top News">
+      <div *ngIf="basicSearchResults && newsResults">
+        <app-tab-company-news [newsResults]="newsResults"></app-tab-company-news>
+      </div>
+    </mat-tab>
+    <mat-tab label="Charts">
+      <div *ngIf="basicSearchResults && historicalPriceResults && ticker">
+        <app-tab-charts *ngIf="dontDestroyChart" [historicalPriceResults]="historicalPriceResults" [ticker]="ticker"></app-tab-charts>
+      </div>
+    </mat-tab>
+    <mat-tab label="Insights">
+      <div *ngIf="basicSearchResults && sentimentResults && recommendationResults && companyEarningResults">
+        <app-tab-insights [basicSearchResults]="basicSearchResults" [sentimentResults]="sentimentResults" [recommendationResults]="recommendationResults" [companyEarningResults]="companyEarningResults"></app-tab-insights>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>
+

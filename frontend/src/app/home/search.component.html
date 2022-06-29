@@ -1,0 +1,59 @@
+<div class="container" xmlns="http://www.w3.org/1999/html">
+  <div class="row justify-content-center" style="font-weight: bold; font-size: 35px; margin-top: 30px">
+    STOCK SEARCH
+  </div>
+    <form [formGroup]="searchForm" class="searchForm" (ngSubmit)="onSubmit(searchForm.value.searchField)">
+      <div class="row justify-content-md-center">
+        <div id="searchBar" class="col-md-4 mt-4">
+          <div class="input-group rounded-pill bg-transparent">
+            <input
+              class="form-control no-border"
+              type="text"
+              name="ticker"
+              placeholder="Enter stock ticker symbol"
+              formControlName="searchField"
+              [matAutocomplete]="auto"
+              id="ticker"
+            />
+            <button type="submit" class="btn no-border" style="padding-top: 5px; padding-bottom: 7px; padding-left: 12px; padding-right: 8px" (click)="onSubmit(searchForm.value.searchField)"><span class="bi-search"></span></button>
+            <button type="button" class="no-border bg-transparent no-hover-effect mat-button matSuffix mat-icon-button" aria-label="Clear" (click)="clearSearchResult()">
+              <mat-icon style="margin-right: 15px">close</mat-icon>
+            </button>
+
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSubmit($event.option.value)">
+              <mat-option *ngIf="isLoading" class="is-loading">
+                <mat-spinner diameter="25"></mat-spinner>
+              </mat-option>
+              <ng-container *ngIf="!isLoading">
+                <mat-option *ngFor="let option of options" [value]="option | autoCompletePipe">
+                  {{option}}
+                </mat-option>
+              </ng-container>
+            </mat-autocomplete>
+          </div>
+        </div>
+      </div>
+    </form>
+</div>
+
+<div *ngIf="ticker" style="margin-top: 40px">
+  <app-ticker [ticker]="ticker"></app-ticker>
+</div>
+<div class="container" *ngIf="noDataFound" style="margin-top: 50px;padding-top:10px; padding-bottom: 10px; background-color: #f9d7da">
+  <div class="row justify-content-center">
+    No data found. Please enter a valid ticker
+  </div>
+</div>
+
+<div class="container" *ngIf="invalidInputField" style="margin-top: 50px;padding-top:6px; padding-bottom: 1px; background-color: #f9d7da">
+  <div class="row">
+    <div class="col text-center">
+      Please enter a valid ticker
+    </div>
+    <span class="justify-content-end">
+      <button type="button" class="no-border bg-transparent no-hover-effect mat-button matSuffix mat-icon-button float-right" aria-label="Clear" (click)="clearInvalidTickerMessage()">
+        <mat-icon style="font-size: 17px;">close</mat-icon>
+      </button>
+    </span>
+  </div>
+</div>

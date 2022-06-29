@@ -1,0 +1,56 @@
+.starIcon {
+  font-size: 20px;
+  vertical-align: top;
+}
+
+.bi-star-fill {
+  color: #FFD700;
+}
+
+.profit_styling {
+  color: green;
+}
+
+.loss_styling {
+  color: red;
+}
+
+.market_closed_styling {
+  color: red;
+}
+
+.market_open_styling {
+  color: green;
+}
+
+.bi-caret-up-fill {
+  color: green;
+}
+
+.bi-caret-down-fill {
+  color: red;
+}
+
+.no-border {
+  border: 0em;
+  box-shadow: none;
+}
+
+.companyLogo {
+  width: 40%;
+}
+
+/*@media(max-device-width: 576px) {*/
+/*  .companyLogo {*/
+/*    width: 80%;*/
+/*  }*/
+
+/*  .heading {*/
+/*    font-size: 25px;*/
+/*  }*/
+
+/*  .subHeading {*/
+/*    font-size: 15px;*/
+/*  }*/
+/*}*/
+

@@ -1,0 +1,68 @@
+<!--<nav class="navbar navbar-custom navbar-expand-lg navbar-dark fixed-top">-->
+<!--  <a class="navbar-brand">Stock Search</a>-->
+
+<!--  <button class="navbar-toggler" type="button" (click)="isCollapsed = !isCollapsed">-->
+<!--    <span class="navbar-toggler-icon"></span>-->
+<!--  </button>-->
+
+<!--  <div class="collapse navbar-collapse" id="navbarToggleContainer" [ngbCollapse]="isCollapsed">-->
+<!--    <ul class="navbar-nav" style="margin-left: auto">-->
+<!--      <li class="nav-item" routerLinkActive="active" style="margin-left: auto">-->
+<!--        <a class="nav-link" [routerLink]="['/search/', getRecentTicker()]">-->
+<!--          Search-->
+<!--        </a>-->
+<!--      </li>-->
+<!--      <li class="nav-item" routerLinkActive="active" style="margin-left: auto">-->
+<!--        <a class="nav-link" routerLink="/watchlist">-->
+<!--          Watchlist-->
+<!--        </a>-->
+<!--      </li>-->
+<!--      <li class="nav-item" routerLinkActive="active" style="margin-left: auto">-->
+<!--        <a class="nav-link" routerLink="/portfolio">-->
+<!--          Portfolio-->
+<!--        </a>-->
+<!--      </li>-->
+<!--    </ul>-->
+<!--  </div>-->
+
+<!--</nav>-->
+
+<nav class="navbar navbar-expand-md navbar-dark sticky-top">
+  <div class="navbar-brand" style="color: white">
+    <a class="nav-link" style="color: white;">Stock Search</a>
+  </div>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" (click)="isCollapsed = !isCollapsed">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" [ngbCollapse]="isCollapsed">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link mx-2 pr-2" style="margin-left: auto" [routerLink]="['/search/', getRecentTicker()]" routerLinkActive="active" (click)="isCollapsed = true">Search</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link mx-2 pr-2" style="margin-left: auto" routerLink="/watchlist" routerLinkActive="active" (click)="isCollapsed = true">Watchlist</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link mx-2 pr-2" style="margin-left: auto" routerLink="/portfolio" routerLinkActive="active" (click)="isCollapsed = true">Portfolio</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="content-container">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  Powered by <a href="https://finnhub.io" target="_blank" rel="noopener noreferrer">Finnhub.io</a>
+</div>
+
+
+

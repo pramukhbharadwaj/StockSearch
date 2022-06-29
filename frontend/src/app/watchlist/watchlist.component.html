@@ -1,0 +1,55 @@
+<div class="container" style="padding-left: 0px; padding-right: 0px; margin-bottom: 30px; width: 80%">
+  <div class="row" style="font-size: 30px; margin-top: 40px; margin-bottom: 20px">
+    My Watchlist
+  </div>
+  <div class="row justify-content-center text-center" *ngIf="wishlistCardsMap.size == 0"
+       style="padding-top:10px; padding-bottom: 10px; background-color: #fff3cd;">
+    Currently you don't have any stock in your watchlist.
+  </div>
+  <div class="row">
+    <div *ngFor="let card of wishlistCardsMap | keyvalue" style="width: 100%">
+      <div class="card" style="margin-top: 20px; margin-bottom: 20px">
+        <div class="row justify-content-end" style="padding-right: 25px">
+          <button type="button" class="close" aria-label="Close" [id]="card.key" (click)="onCloseButtonClick($event)">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div [routerLink]="['/search/' + card.value.ticker]" class="card-block" style="cursor: pointer">
+          <div class="row">
+            <div class="col-6">
+              <p style="margin-left: 20px; font-size: 20px; font-weight: 500">{{card.value.ticker}}</p>
+              <p style="margin-left: 20px">{{card.value.companyName}}</p>
+            </div>
+            <div class="col-6" *ngIf="card.value.change > 0" style="text-align: right; color: green">
+              <p
+                style="margin-right: 40px; font-size: 20px; font-weight: 500">{{card.value.lastPrice | formatToTwoDecimalPlacePipe}}</p>
+              <p style="margin-right: 40px">
+                <i class="bi bi-caret-up-fill"></i>
+                {{card.value.change | formatToTwoDecimalPlacePipe}}
+                ({{card.value.changePercentage | formatToTwoDecimalPlacePipe}}%)
+              </p>
+            </div>
+            <div class="col-6" *ngIf="card.value.change < 0" style="text-align: right; color: red">
+              <p
+                style="margin-right: 40px; font-size: 20px; font-weight: 500">{{card.value.lastPrice | formatToTwoDecimalPlacePipe}}</p>
+              <p style="margin-right: 40px">
+                <i class="bi bi-caret-down-fill"></i>
+                {{card.value.change | formatToTwoDecimalPlacePipe}}
+                ({{card.value.changePercentage | formatToTwoDecimalPlacePipe}}%)
+              </p>
+            </div>
+            <div class="col-6" *ngIf="card.value.change == 0" style="text-align: right;">
+              <p
+                style="margin-right: 40px; font-size: 20px; font-weight: 500">{{card.value.lastPrice | formatToTwoDecimalPlacePipe}}</p>
+              <p style="margin-right: 40px"> {{card.value.change | formatToTwoDecimalPlacePipe}}
+                ({{card.value.changePercentage | formatToTwoDecimalPlacePipe}}%)
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

@@ -1,0 +1,30 @@
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{modalTitle}}</h4>
+    <button type="button" class="no-border bg-transparent no-hover-effect mat-button matSuffix mat-icon-button" aria-label="Clear" (click)="modal.dismiss('Cross click')">
+      <mat-icon style="font-size: 15px">close</mat-icon>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Current Price: {{currentPriceOfStock | formatToTwoDecimalPlacePipe}}</p>
+    <p>Money in wallet: ${{moneyInWallet | formatToTwoDecimalPlacePipe}}</p>
+
+    <form (submit)="modal.close(quantity)">
+      <div class="mb-3">
+        <div class="input-group">
+          <span style="display: inline-flex; align-items: center;"><label for="quantity">Quantity &nbsp; &nbsp;</label></span>
+          <input type="number" id="quantity" class="form-control" min="1" step="1" value="1" name="quantity" [(ngModel)]="quantity" style="max-width: 100px">
+        </div>
+        <div *ngIf="quantity > currentQuantity">
+          <p style="margin-top: 10px; color: red">You cannot sell the stocks you don't have!</p>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <p class="mr-auto" *ngIf="quantity >= 0">Total: {{(quantity * currentPriceOfStock) | formatToTwoDecimalPlacePipe}}</p>
+    <input type="submit" class="btn btn-danger btn-sm" [disabled]="(!quantity || quantity <= 0 || quantity > currentQuantity)" (click)="modal.close(quantity)" value="Sell">
+  </div>
+</ng-template>
+
+<button class="btn btn-danger btn-sm" (click)="open(content)">Sell</button>

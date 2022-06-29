@@ -1,0 +1,58 @@
+<div class="container" *ngIf="shouldDisplayWatchlistAlertMessage" [style]="watchlistAlertMessageStyling">
+  <div class="row">
+    <div class="col text-center">
+        {{watchlistAlertMessage}}
+      <span class="justify-content-end">
+          <button type="button" class="no-border bg-transparent no-hover-effect mat-button matSuffix mat-icon-button float-right" aria-label="Clear" (click)="clearWatchListMessage()">
+            <mat-icon style="font-size: 17px;">close</mat-icon>
+          </button>
+      </span>
+    </div>
+  </div>
+</div>
+<div class="container" *ngIf="shouldDisplayPortfolioAlertMessage" [style]="portfolioAlertMessageStyling">
+  <div class="row">
+    <div class="col text-center">
+      {{portfolioAlertMessage}}
+    </div>
+    <span class="justify-content-end">
+      <button type="button" class="no-border bg-transparent no-hover-effect mat-button matSuffix mat-icon-button float-right" aria-label="Clear" (click)="clearPortfolioMessage()">
+        <mat-icon style="font-size: 17px;">close</mat-icon>
+      </button>
+    </span>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-5">
+      <div><span class="heading" style="font-size: 30px; font-weight: bold;">{{ticker}}</span><span class="starIcon" (click)="watchListClick()">&nbsp;&nbsp;<i [class]="starButton_styling"></i></span></div>
+      <div class="subHeading" style="font-size: 20px; font-weight: normal; color: grey; margin-top: 4px">{{companyName}}</div>
+      <div style="font-size: 12px;margin-top: 4px" class="exchangeCode">{{exchangeCode}}</div>
+    </div>
+    <div class="col-2" style="padding: 0px">
+      <div class="row justify-content-center">
+        <img class="companyLogo" [src]="companyLogoLink">
+      </div>
+    </div>
+    <div class="col-5">
+      <div [class]="profit_loss_styling" style="font-size: 30px; font-weight: bold; text-align: right">{{ lastPrice | formatToTwoDecimalPlacePipe}}</div>
+      <div [class]="profit_loss_styling" style="font-size: 17px; font-weight: normal; margin-top: 10px; text-align: right"><span *ngIf="change >= 0"><i class="bi bi-caret-up-fill"></i></span><span *ngIf="change < 0"><i class="bi bi-caret-down-fill"></i></span>{{change | formatToTwoDecimalPlacePipe}}({{changePercentage | formatToTwoDecimalPlacePipe}}%)</div>
+      <div style="font-size: 14px; text-align: right; margin-top: 4px">{{currentDateTimeInISO}}</div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col" style="margin-top: 3px">
+      <app-buy-modal [modalTitle]="ticker" [currentPriceOfStock]="lastPrice" [companyName]="companyName" (actionHappened)="transactionComponentHandler('buy')" [isBuyButtonSuccess]="true"></app-buy-modal>
+      &nbsp;
+      <span *ngIf="ifStockPurchased">
+        <app-sell-modal [modalTitle]="ticker" [currentPriceOfStock]="lastPrice" (actionHappened)="transactionComponentHandler('sell')"></app-sell-modal>
+      </span>
+    </div>
+  </div>
+  <div class="row" style="margin-top: 6px">
+    <div class="col text-center">
+      <span [class]="market_status_styling" style="font-size: 13px;">Market is {{marketStatus}} <span *ngIf="marketStatus == 'closed on'">{{closeTimeInISO}}</span></span>
+  </div>
+  </div>
+</div>
+

@@ -1,0 +1,68 @@
+1. Done - error happening for ticker - 1337.HK
+core.js:4442 ERROR TypeError: Cannot read properties of null (reading 'c')
+    at SafeSubscriber._next (ticker.component.ts:55:35)
+    at SafeSubscriber.__tryOrUnsub (Subscriber.js:183:1)
+    at SafeSubscriber.next (Subscriber.js:122:1)
+    at Subscriber._next (Subscriber.js:72:1)
+    at Subscriber.next (Subscriber.js:49:1)
+    at Object.complete (forkJoin.js:50:1)
+    at Object.wrappedComplete (Subscriber.js:166:1)
+    at SafeSubscriber.__tryOrUnsub (Subscriber.js:183:1)
+    at SafeSubscriber.complete (Subscriber.js:168:1)
+    at Subscriber._complete (Subscriber.js:79:1)
+
+
+2. Done - Display filled/unfilled star in stock-details by checking if that ticker is present in localstorage or not.
+Skeletal code is already written for it.
+Also check the error message display scenarios
+
+
+3. Done - Handle error message for empty watchlist and empty portfolio
+
+4. Not sure - Modal Spinner is only showing on hover. make it to always display
+
+5. Done- used pipes Round off to two decimal places for all number input. Do this in the common ticker component before sending the results to other component.
+Check this behavior for modal buy. The total price should being calculated should be rounded to two decimal places.
+
+6. Done - Adjust Summary tab High price and other content to be in a table to fix the alignment between key and value
+
+7. Done - Loading Symbol when searching should appear
+
+
+8. Uncomment the every 15second refresh function
+
+9.Make things responsive
+    when navbar selected icon selected, push down the div
+
+10. Done - Set timezone for summary chart
+
+11. Handle API limit exceeded
+
+12. https://piazza.com/class/kxindf11ki56s2?cid=626
+
+13. Remove node modules before zipping and uploading
+
+14. Done - Have total display zero for zero quantity in the modal
+
+
+15. Do facebook sharing
+
+16. Done - Recommendation trends stacked chart, set color as mentioned in the description
+
+17. Done - Portfolio make api calls to get latest current price.
+
+18. Done - shared tooltip for historical eps chart
+
+19. Done - Filter out the company peers if it has a dot
+
+20. Not sure - Enter key in the modal should do buy/sell
+
+21. https://piazza.com/class/kxindf11ki56s2?cid=597
+
+22. Don't store watchlist and portfolio in state service
+
+23. Done - Display bought and sold messages at the top of the portfolio
+
+24. Done - Pull down the div when navigation menu is opened on small screen. check all the bootstrap classes for this
+
+

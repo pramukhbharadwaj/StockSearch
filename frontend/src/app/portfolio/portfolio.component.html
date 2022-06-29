@@ -1,0 +1,154 @@
+<div class="container" style="padding-left: 0px; padding-right: 0px; margin-bottom: 30px; width: 80%">
+  <div class="row" *ngIf="shouldDisplayPortfolioAlertMessage" [style]="portfolioAlertMessageStyling">
+    <div class="col text-center">
+      {{portfolioAlertMessage}}
+    </div>
+    <span class="justify-content-end">
+      <button type="button"
+              class="no-border bg-transparent no-hover-effect mat-button matSuffix mat-icon-button float-right"
+              aria-label="Clear" (click)="clearPortfolioMessage()">
+        <mat-icon style="font-size: 17px;">close</mat-icon>
+      </button>
+    </span>
+  </div>
+  <div class="row" style="font-size: 30px; margin-top: 40px; margin-bottom: 20px">
+    My Portfolio
+  </div>
+  <div class="row" style="font-size: 20px; margin-top: 10px; margin-bottom: 20px">
+    Money in Wallet: $ {{moneyInWallet | formatToTwoDecimalPlacePipe}}
+  </div>
+
+  <div class="row justify-content-center" *ngIf="portfolioCards.size == 0"
+       style="padding-top:10px; padding-bottom: 10px; background-color: #fff3cd;">
+    Currently you don't have any stock.
+  </div>
+
+  <div class="row">
+    <div *ngFor="let card of portfolioCards | keyvalue" style="margin-top: 20px; margin-bottom: 20px; width: 100%">
+      <div class="card text-center">
+        <div [routerLink]="['/search/' + card.value.ticker]" class="card-block" style="cursor: pointer">
+          <div class="card-header" style="text-align: left">
+          <span style="font-weight: 400; font-size: 20px">
+            {{card.value.ticker}}
+          </span>
+            <span style="color: #808080">
+            {{card.value.companyName}}
+          </span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="row">
+                <div class="col text-left">
+                  Quantity:
+                </div>
+                <div class="col text-right">
+                  {{card.value.quantity}}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col text-left">
+                  Avg. Cost / Share:
+                </div>
+                <div class="col text-right">
+                  {{(card.value.totalCost / card.value.quantity) | formatToTwoDecimalPlacePipe}}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col text-left">
+                  Total Cost:
+                </div>
+                <div class="col text-right">
+                  {{card.value.totalCost | formatToTwoDecimalPlacePipe}}
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="row">
+                <div class="col text-left">
+                  Change:
+                </div>
+                <div class="col text-right"
+                     *ngIf="(((card.value.totalCost / card.value.quantity) - currentPriceMap.get(card.value.ticker)) | formatToTwoDecimalPlacePipe)> 0"
+                     style="text-align: right; color: green">
+                  <i
+                    class="bi bi-caret-up-fill"></i>{{(((card.value.totalCost / card.value.quantity) - currentPriceMap.get(card.value.ticker)) | formatToTwoDecimalPlacePipe)}}
+                </div>
+                <div class="col text-right"
+                     *ngIf="(((card.value.totalCost / card.value.quantity) - currentPriceMap.get(card.value.ticker)) | formatToTwoDecimalPlacePipe) < 0"
+                     style="text-align: right; color: red">
+                  <i
+                    class="bi bi-caret-down-fill"></i>{{(((card.value.totalCost / card.value.quantity) - currentPriceMap.get(card.value.ticker)) | formatToTwoDecimalPlacePipe)}}
+                </div>
+                <div class="col text-right"
+                     *ngIf="(((card.value.totalCost / card.value.quantity) - currentPriceMap.get(card.value.ticker)) | formatToTwoDecimalPlacePipe) == 0"
+                     style="text-align: right;">
+                  {{(((card.value.totalCost / card.value.quantity) - currentPriceMap.get(card.value.ticker)) | formatToTwoDecimalPlacePipe)}}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col text-left">
+                  Current Price:
+                </div>
+                <div class="col text-right"
+                     *ngIf="(((card.value.totalCost / card.value.quantity) - currentPriceMap.get(card.value.ticker)) | formatToTwoDecimalPlacePipe) > 0"
+                     style="text-align: right; color: green">
+                  {{currentPriceMap.get(card.value.ticker) | formatToTwoDecimalPlacePipe}}
+                </div>
+                <div class="col text-right"
+                     *ngIf="(((card.value.totalCost / card.value.quantity) - currentPriceMap.get(card.value.ticker)) | formatToTwoDecimalPlacePipe) < 0"
+                     style="text-align: right; color: red">
+                  {{currentPriceMap.get(card.value.ticker) | formatToTwoDecimalPlacePipe}}
+                </div>
+                <div class="col text-right"
+                     *ngIf="(((card.value.totalCost / card.value.quantity) - currentPriceMap.get(card.value.ticker)) | formatToTwoDecimalPlacePipe) == 0"
+                     style="text-align: right;">
+                  {{currentPriceMap.get(card.value.ticker) | formatToTwoDecimalPlacePipe}}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col text-left">
+                  Market Value:
+                </div>
+                <div class="col text-right"
+                     *ngIf="(((card.value.totalCost / card.value.quantity) - currentPriceMap.get(card.value.ticker)) | formatToTwoDecimalPlacePipe) > 0"
+                     style="text-align: right; color: green">
+                  {{(currentPriceMap.get(card.value.ticker) * card.value.quantity) | formatToTwoDecimalPlacePipe}}
+                </div>
+                <div class="col text-right"
+                     *ngIf="(((card.value.totalCost / card.value.quantity) - currentPriceMap.get(card.value.ticker)) | formatToTwoDecimalPlacePipe) < 0"
+                     style="text-align: right; color: red">
+                  {{(currentPriceMap.get(card.value.ticker) * card.value.quantity) | formatToTwoDecimalPlacePipe}}
+                </div>
+                <div class="col text-right"
+                     *ngIf="(((card.value.totalCost / card.value.quantity) - currentPriceMap.get(card.value.ticker)) | formatToTwoDecimalPlacePipe) == 0"
+                     style="text-align: right;">
+                  {{(currentPriceMap.get(card.value.ticker) * card.value.quantity) | formatToTwoDecimalPlacePipe}}
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="card-footer text-muted">
+        <div class="row justify-content-end">
+          <span style="margin-right: 10px">
+          <app-buy-modal [modalTitle]="card.value.ticker" [currentPriceOfStock]="currentPriceMap.get(card.value.ticker)"
+                         [companyName]="card.value.companyName"
+                         (actionHappened)="transactionComponentHandler('buy', card.value.ticker)"></app-buy-modal>
+        </span>
+          <span style="margin-right: 10px">
+          <app-sell-modal [modalTitle]="card.value.ticker"
+                          [currentPriceOfStock]="currentPriceMap.get(card.value.ticker)"
+                          (actionHappened)="transactionComponentHandler('sell', card.value.ticker)"></app-sell-modal>
+        </span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
